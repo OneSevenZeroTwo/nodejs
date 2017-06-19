@@ -43,6 +43,7 @@ ctrl + c 退出命令
 |-|-|
 |define|exports|
 |require|require|
+
 前端里面
 ```javascript
 <script src="method.js"></script>
@@ -114,6 +115,7 @@ npm uninstall XXX(卸载)
 require("./http.js")//自定义模块
 require("http")//内置模块
 ```
+
 |状态码||
 |-|-|
 |100||
@@ -121,6 +123,7 @@ require("http")//内置模块
 |3xx|重定向|
 |4xx|客户端错误|
 |5xx|服务端错误|
+
 
 ## 创建服务器
 ### http
@@ -144,6 +147,7 @@ http.createServer(function(request,response){
 
 注意点：是否跨域，每次修改完代码，记得重新用node执行后端.js文件
 请求的地方是指向xxx.js执行后的域名和端口号，nodejs跑一个http.js(代替了php+apache)
+
 |php|nodejs|
 |-|-|
 |`header("Access-Control-Allow-Origin:*");`|`response.setHeader("Access-Control-Allow-Origin","*")`|
