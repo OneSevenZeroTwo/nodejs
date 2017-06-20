@@ -14,16 +14,24 @@ http.createServer(function(request,response){
 	//把我们参数部分截取出来
 	var paramStr  = url.parse(request.url).query;
 	var param = querystring.parse(paramStr);
-	/*利用querystring方法把 name=asdasd&skill=ps&kkk=sssss => {
-		name:"asdasd",
-		skill:"ps",
-		kkk:"sss"
-	}*/
-	console.log(param["name"])
-	console.log(param["skill"])
+	console.log(param)
+	
+	var obj = {
+		news:[{
+			title:"adasdasd",
+			content:"asdasdasdasd"
+		},{
+			title:"ask大神可点击",
+			content:"几点啦数据方是否"
+		},{
+			title:"方块开发开发曼妮芬",
+			content:"去请求二翁"
+		}]
+	}
+	
 	//解决跨域
 	response.setHeader("Access-Control-Allow-Origin","*");
 	//相应结果显示浏览器上
-	response.end("Hello World");
+	response.end(param["callback"]+"("+JSON.stringify(obj)+")");
 }).listen(12345)
 //端口号有范围限制0~65535

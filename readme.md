@@ -5,6 +5,7 @@
 1. Chrome其实本质上就是V8引擎，用来解析JS的客户端（浏览器）前端部分
 2. Node其实就死系统上运行V8引擎，用来解析JS的服务端（系统）后端部分
 
+
 客户端 浏览器
 ```javascript
 <!DOCTYPE html>
@@ -30,6 +31,8 @@ node test.js
 //相当于
 node test
 ```
+如果test都是指定同一个端口，只能成功运行一个test.js
+
 
 > nodejs是一个系统框架，专门实现把JS跑在浏览器以外的地方，nodejs其实就是用JS的语法
 
@@ -156,7 +159,7 @@ http.createServer(function(request,response){
 |PHP|JS|
 |$_GET["xxx"]|var paramStr  = url.parse(request.url).query;var param = querystring.parse(paramStr);//记得引入url和querystring模块|
 |打开(wamp)apche服务器，直接请求.php，放在你们的wamp,www文件里面|放在任何地方，但是要用node执行，然后访问对应端口|
-
+|$_POST["xxx"]|`var post = "";request.on("data", function(chunk) {post += chunk;})request.on("end", function() {console.log(querystring.parse(post));response.end("b");})`|
 
 ### url
 **url**模块提供了一些实用函数，用于URL处理与解析
@@ -177,4 +180,129 @@ var querystring = require('querystring');
 ```javascript
 var param = querystring.parse(paramStr);//{name:"laoxie",skill:"js"}
 param.name / param["name"]
+```
+
+## 获取GET请求
+
+是通过url和querystring模块去实现的
+
+## 获取post请求
+利用`request.on()`方法监听post请求头的数据，然后监听请求结束，再去把整个请求头部分作为字符串处理
+```javascript
+var post = "";
+request.on("data", function(chunk) {
+	post += chunk;
+})
+request.on("end", function() {
+	console.log(post)//name=laoxie&skill=PS&age=18
+})
+```
+配合querystring模块把字符串处理成我们需要的对象
+```
+querystring.parse(post)
+```
+
+## 获取jsonp请求
+jQ的方法
+```javascript
+$.ajax({
+	url: "http://localhost:12345",
+	type: "get",
+	dataType: "jsonp",
+	jsonpCallback: "JSON_CALLBACK",
+	success: function(data) {
+		console.log(data)
+	}
+})
+```
+类似get请求把参数放在url上，也是通过querystring和url模块去获取jsonp的参数
+```javascript
+var paramStr = url.parse(request.url).query;
+var param = querystring.parse(paramStr);
+var obj = {
+		news:[{
+			title:"adasdasd",
+			content:"asdasdasdasd"
+		},{
+			title:"ask大神可点击",
+			content:"几点啦数据方是否"
+		},{
+			title:"方块开发开发曼妮芬",
+			content:"去请求二翁"
+		}]
+	}
+	
+//解决跨域
+response.setHeader("Access-Control-Allow-Origin","*");
+//相应结果显示浏览器上
+response.end(param["callback"]+"("+JSON.stringify(obj)+")");
+```
+
+
+## mysql
+[mysql模块文档](https://www.npmjs.com/package/mysql)
+### 安装
+```javascript
+npm install mysql
+```
+
+### 引入
+```javascript
+var mysql = require("mysql");
+```
+### 配置连接的对比
+```javascript
+//php
+$con = mysql_connect("localhost","laoxie","12345678");
+mysql_select_db("asm", $con);
+
+//nodejs
+var connection = mysql.createConnection({
+	host: 'localhost',
+	user: 'laoxie',
+	password: '12345678',
+	database: 'asm'
+});
+```
+
+### 连接数据库
+```javascript
+//php
+mysql_select_db("asm", $con);
+
+//nodejs
+connection.connect();
+```
+
+### 执行sql语句
+```javascript
+//php
+$result = mysql_query("SELECT * FROM news");
+
+//nodejs
+connection.query('SELECT title FROM news', function(error, results, fields) {
+	if(error) throw error;
+	console.log('The solution is: ', results);
+});
+```
+
+### 关闭数据库
+```javascript
+mysql_close($con);
+
+connection.end();
+```
+
+
+## 路由
+url上的某个决定去向的参数
+
+比如如果url是`http://localhost:12345/aaaaaa.jpg?name=asdasd&skill=ps`
+
+router路由就是`/aaaaaa.jpg`
+
+hash哈希值就是`name=asdasd&skill=ps`
+```javascript
+var url = require("url")
+url.parse(request.url).pathname
 ```
