@@ -23,7 +23,7 @@ http.createServer(function(request, response) {
 		console.log(param["skill"])
 			//解决跨域
 		response.setHeader("Access-Control-Allow-Origin", "*");
-		//相应结果显示浏览器上
-		response.end("Hello World");
+		var html = "<p>"+param.name+"</p><p style='color:red'>"+param.skill+"</p>"
+		response.end(html);
 	}).listen(12345)
 	//端口号有范围限制0~65535

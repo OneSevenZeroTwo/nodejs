@@ -301,8 +301,109 @@ url上的某个决定去向的参数
 
 router路由就是`/aaaaaa.jpg`
 
-hash哈希值就是`name=asdasd&skill=ps`
+hash哈希值就是`?name=asdasd&skill=ps`
 ```javascript
 var url = require("url")
 url.parse(request.url).pathname
 ```
+
+### 前端路由
+```javascript
+https://item.taobao.com/item.htm?spm=a217h.8239130.618660.15.sWoK9Y&id=537784299404
+
+前端路由 /item.htm
+哈希值 ?spm=a217h.8239130.618660.15.sWoK9Y&id=537784299404
+
+前端路由就是决定我们进去那一类型页面
+哈希值决定该类型页面呈现的具体内容
+```
+
+### 后端路由
+```javascript
+http://localhost:12345/test?name=laoxie&skill=ps
+
+后端路由/test
+哈希值 ?name=laoxie&skill=ps
+
+后端路由就是决定我们后端做那一类型逻辑
+哈希值决定用那些值处理该逻辑
+```
+
+## bootstrap
+响应式框架
+[bootstrap下载](http://www.bootcss.com/)
+
+### 栅格系统
+12格
+比如 1:1的就是 6+6=12
+比如3:1的就是9+3=12
+
+### 可视化布局
+[可视化布局](http://www.layoutit.cn/v3/index.html)
+
+### 使用
+引入bootstrap.css然后，从官网中拷贝html部分过来页面上
+```html
+<link rel="stylesheet" href="css/bootstrap.css" />
+```
+
+### W3C
+
+[W3C](https://www.w3cschool.cn/nodejs/)
+
+
+## express框架
+框架跟库的区别
+
+框架>库
+
+1.框架： 打仗的阵容，出兵的方式（战术，战略）
+2.库： 火枪，马，盾牌
+
+1. 可以设置中间件来响应 HTTP 请求。
+2. 定义了路由表用于执行不同的 HTTP 请求动作。
+3. 可以通过向模板传递参数来动态渲染 HTML页面(跟前后端分离的思想所违背)
+
+### 中间件
+
+[expressjs中文文档](https://expressjs.com/zh-cn/)
+
+[npm express](https://www.npmjs.com/package/express)
+
+[w3c express](https://www.w3cschool.cn/nodejs/nodejs-express-framework.html)
+
+是要get请求并且匹配到路由`/`，我就执行回调，并用`res.send`方法去相应结果
+```
+app.get('/', function(req, res) {
+	res.send('Hello World');
+})
+```
+
+### body-parser
+express没有帮我们处理post请求的数据，我们需要借助于body-parser去处理post的数据
+[body-parser](https://www.npmjs.com/package/body-parser)
+```
+//npm install body-parser
+var bodyParser = require('body-parser')
+app.use(bodyParser.urlencoded({ extended: false }))
+// parse application/json 
+app.use(bodyParser.json())
+```
+
+### zeptojs
+[zeptojs](http://www.css88.com/doc/zeptojs_api/)
+
+
+### 淘宝镜像
+
+[淘宝镜像](http://npm.taobao.org/)
+安装成功之后，就可以在命令行多一个cnpm命令，以后就可以用cnpm来代替npm命令
+```javascript
+npm install -g cnpm --registry=https://registry.npm.taobao.org
+```
+
+|||
+|-|-|
+|body-parser|node.js 中间件，用于处理 JSON, Raw, Text 和 URL 编码的数据|
+|cookie-parser|这就是一个解析Cookie的工具。通过req.cookies可以取到传过来的cookie，并把它们转成对象|
+|multer|node.js 中间件，用于处理 enctype="multipart/form-data"（设置表单的MIME编码）的表单数据|
