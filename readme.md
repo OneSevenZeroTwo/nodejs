@@ -405,6 +405,14 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 ```
 
+### multer
+实现文件上传
+[multer npm](https://www.npmjs.com/package/multer)
+
+[multer 中文](https://github.com/expressjs/multer/blob/master/doc/README-zh-cn.md)
+
+[multer](https://github.com/Wscats/node-tutorial/tree/master/uploadFiles)
+
 ### zeptojs
 [zeptojs](http://www.css88.com/doc/zeptojs_api/)
 
@@ -438,4 +446,46 @@ fs.readFile()//异步
 ```javascript
 fs.writeFile()
 fs.writeFileSync()
+```
+
+## PHP+NodeJS+前端
+
+借助自己的服务器，访问别人的服务器获得数据到自己服务器，再向自己服务器获取数据，从而解决跨域，因为服务器之间没有跨域，
+
+PHP服务器代理
+```php
+<?php
+	$text = file_get_contents("http://www.tuling123.com/openapi/api?key=c75ba576f50ddaa5fd2a87615d144ecf&info=%E8%AE%B2%E4%B8%AA%E7%AC%91%E8%AF%9D");
+	echo $text;
+?>
+```
+
+NodeJS服务器代理
+
+利用http模块的`http.request`方法实现服务器代理
+```
+var http = require("http");
+//node代理
+//http://www.tuling123.com/openapi/api?key=c75ba576f50ddaa5fd2a87615d144ecf&info=%E8%AE%B2%E4%B8%AA%E7%AC%91%E8%AF%9D
+//console.log(http)
+console.log("start1");
+http.request({
+	hostname: 'www.tuling123.com',
+	port: '80',
+	path: '/openapi/api?key=c75ba576f50ddaa5fd2a87615d144ecf&info=%E8%AE%B2%E4%B8%AA%E7%AC%91%E8%AF%9D',
+	method: 'GET'
+}, function(res) {
+	//res.setEncoding('utf8');
+	console.log("start2");
+	var data = "";
+	res.on('data', function(chunk){
+		data += chunk
+	});
+	res.on('end', function(){
+		console.log("success")
+		console.log(data);
+	});
+}).on('error', function(e) {
+	console.log('problem with request: ' + e.message);
+}).end();
 ```
