@@ -5,7 +5,6 @@ var url = require("url")
 var querystring = require('querystring');
 var mysql = require("mysql");
 var connection;
-
 function createConnection() {
 	connection = mysql.createConnection({
 		host: 'localhost',

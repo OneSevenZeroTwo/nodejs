@@ -2,7 +2,8 @@
 var http = require("http");
 //引入url模块
 var url = require("url");
-//引入queryString，用于格式化url上面的参数
+var fs = require("fs")
+	//引入queryString，用于格式化url上面的参数
 var querystring = require('querystring');
 //console.log(http)
 //用createServer创建服务器
@@ -23,7 +24,12 @@ http.createServer(function(request, response) {
 		console.log(param["skill"])
 			//解决跨域
 		response.setHeader("Access-Control-Allow-Origin", "*");
-		var html = "<p>"+param.name+"</p><p style='color:red'>"+param.skill+"</p>"
-		response.end(html);
+		fs.writeFile("test.html", param.html, function(err) {
+				fs.readFile("test.html", function(err, data) {
+					console.log(data.toString())
+					response.end(data.toString());
+				})
+			})
+			//var html = "<p>"+param.name+"</p><p style='color:red'>"+param.skill+"</p>"
 	}).listen(12345)
 	//端口号有范围限制0~65535

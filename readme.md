@@ -379,6 +379,21 @@ app.get('/', function(req, res) {
 })
 ```
 
+### 静态文件
+
+```javascript
+app.use(express.static('public'));
+```
+
+### 模板引擎
+
+```javascript
+app.set('views', './views');
+//view engine：要使用的模板引擎。例如：
+app.set('view engine', 'jade')
+```
+
+
 ### body-parser
 express没有帮我们处理post请求的数据，我们需要借助于body-parser去处理post的数据
 [body-parser](https://www.npmjs.com/package/body-parser)
@@ -407,3 +422,20 @@ npm install -g cnpm --registry=https://registry.npm.taobao.org
 |body-parser|node.js 中间件，用于处理 JSON, Raw, Text 和 URL 编码的数据|
 |cookie-parser|这就是一个解析Cookie的工具。通过req.cookies可以取到传过来的cookie，并把它们转成对象|
 |multer|node.js 中间件，用于处理 enctype="multipart/form-data"（设置表单的MIME编码）的表单数据|
+
+### FS文件系统
+
+内置的fs模块,文件的读取、写入、更名、删除、遍历
+```javascript
+var fs = require("fs")
+```
+有sync的就是同步，没有就是异步
+```javascript
+fs.readFileSync()//同步
+fs.readFile()//异步
+```
+写入文件
+```javascript
+fs.writeFile()
+fs.writeFileSync()
+```
