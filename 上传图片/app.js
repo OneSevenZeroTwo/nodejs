@@ -9,7 +9,7 @@ var multer = require('multer');
 	dest: 'uploads/'
 })*/
 var storage = multer.diskStorage({
-	//设置上传后文件路径，uploads文件夹会自动创建。
+	//设置上传后文件路径，uploads文件夹手动创建。
 	destination: function(req, file, cb) {
 		cb(null, './uploads')
 	},
@@ -24,7 +24,7 @@ var storage = multer.diskStorage({
 var upload = multer({
 	storage: storage
 });
-
+ 
 //单图上传
 //app.post('/upload-single', upload.single('logo'), function(req, res, next) {
 app.post('/upload-single', upload.any(), function(req, res, next) {	
