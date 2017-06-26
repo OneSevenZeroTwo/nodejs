@@ -36,6 +36,7 @@ app.get('/', function(req, res) {
 	}).end();
 	res.send('Hello World');
 })
+
 app.get("/log", function(req, res) {
 	fs.readFile("log.html", function(err, data) {
 		res.send("<meta charset='utf-8' /><table>" + data + "</table>");

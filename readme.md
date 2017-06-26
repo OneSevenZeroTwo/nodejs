@@ -489,6 +489,7 @@ http.request({
 	console.log('problem with request: ' + e.message);
 }).end();
 ```
+<<<<<<< HEAD
 
 ```javascript
 http.get("http://www.tuling123.com/openapi/api?key=c75ba576f50ddaa5fd2a87615d144ecf&info=%E8%AE%B2%E4%B8%AA%E7%AC%91%E8%AF%9D", function(res) {
@@ -535,3 +536,5 @@ cheerio模块，后端的jQ
 ajax短连接
 
 websocket长连接
+=======
+>>>>>>> e888544d050e5d02eb341fa8768844eea8e7487a
