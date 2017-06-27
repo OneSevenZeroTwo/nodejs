@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<title></title>
+		<link rel="stylesheet" href="css/weui.css" />
+		<link href="//www.lgstatic.com/m/css/dep/normalize.css-3.0.2/normalize.css?v=201706062006" rel="stylesheet">
+		<link rel="Shortcut Icon" href="//www.lgstatic.com/m/images/asset/common/img/favicon.ico?v=201706062006">
+		<link href="//www.lgstatic.com/m/css/asset/center/mine/css/mine.css?v=201706062006" rel="stylesheet">
+	</head>
+
+	<body ontouchstart="">
+		<header id="header">拉勾网</header>
+		<form id="uploadForm">
+			<input type="file" name="logo" onchange="doUpload()" multiple="multiple" />
+		</form>
+		<div id="content">
+			<div class="logininfo">
+				<div class="haslogin center">
+					<a class="button" href="http://www.lagou.com/center/preview.html" target="_self"> 简历&gt; </a>
+					<div class="headcon">
+						<img class="headpic" src="//www.lgstatic.com/i/image/M00/33/C0/Cgp3O1dS3yuABUkvAAowj3mtgAM075.png">
+					</div>
+					<div class="name">姚嘉隆</div>
+				</div>
+			</div>
+			<!-- 登录地址-->
+			<div class="buttons">
+				<a class="button deliver" href="/user/deliverlist.html">
+					<span>投递</span>
+					<span class="num"> 1 </span>
+				</a>
+				<a class="button interview" href="/minterview/interviewlist.html">面试</a>
+				<a class="button invitation" href="/minvite/invitation.html">
+					<span>邀约</span>
+				</a>
+				<a class="button collect" href="/user/collectlist.html">收藏</a>
+			</div>
+			<a class="logout" href="/frontLogout.do" style="display: block;">退出登录</a>
+		</div>
+		<!--<footer id="footer">
+			<div data-name="职位" data-index="0" data-type="custom" class="footer-tab-custom"><span class="icon"></span><span class="text">职位</span></div>
+			<div data-name="搜索" data-index="1" data-type="search" class="footer-tab-search"><span class="icon"></span><span class="text">搜索</span></div>
+			<div data-name="我的" data-index="2" data-type="mine" class="footer-tab-mine selected"><span class="icon selected"></span><span class="text">我的</span></div>
+		</footer>-->
+		<div class="weui-tabbar" style="position: fixed;">
+			<a href="javascript:;" class="weui-tabbar__item weui-bar__item_on">
+				<span style="display: inline-block;position: relative;">
+                        <img src="./images/icon_tabbar.png" alt="" class="weui-tabbar__icon">
+                        <span class="weui-badge" style="position: absolute;top: -2px;right: -13px;">8</span>
+				</span>
+				<p class="weui-tabbar__label">微信</p>
+			</a>
+			<a href="javascript:;" class="weui-tabbar__item">
+				<img src="./images/icon_tabbar.png" alt="" class="weui-tabbar__icon">
+				<p class="weui-tabbar__label">通讯录</p>
+			</a>
+			<a href="javascript:;" class="weui-tabbar__item">
+				<span style="display: inline-block;position: relative;">
+                        <img src="./images/icon_tabbar.png" alt="" class="weui-tabbar__icon">
+                        <span class="weui-badge weui-badge_dot" style="position: absolute;top: 0;right: -6px;"></span>
+				</span>
+				<p class="weui-tabbar__label">发现</p>
+			</a>
+			<a href="javascript:;" class="weui-tabbar__item">
+				<img src="./images/icon_tabbar.png" alt="" class="weui-tabbar__icon">
+				<p class="weui-tabbar__label">我</p>
+			</a>
+		</div>
+	</body>
+	<script src="js/jquery-3.1.1.min.js"></script>
+	<script>
+		function doUpload() {
+			console.log("abc")
+			$.ajax({
+				url: 'http://localhost:8081/upload-single',
+				type: 'POST',
+				cache: false, //不必须
+				data: new FormData($('#uploadForm')[0]),
+				processData: false,
+				contentType: false,
+				success: function(data) {
+					console.log(data)
+					$(".headpic").attr("src","http://localhost:8081/"+data.imgInfo[0].filename)
+				}
+			})
+		}
+	</script>
+
+</html>

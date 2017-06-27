@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -9,14 +10,34 @@
 		<link rel="Shortcut Icon" href="//www.lgstatic.com/m/images/asset/common/img/favicon.ico?v=201706062006">
 		<link href="//www.lgstatic.com/m/css/asset/center/jobdetail/css/main.css?v=201706062006" rel="stylesheet">
 	</head>
+
 	<body>
 		<div id="content"></div>
 		<div class="weui-gallery">
-			<span class="weui-gallery__img" style="background-image: url(./images/pic_article.png);"></span>
+			<div id="img">
+
+			</div>
 			<div class="weui-gallery__opr">
 				<a href="javascript:" class="weui-gallery__del">
 					<i class="weui-icon-delete weui-icon_gallery-delete"></i>
 				</a>
+			</div>
+		</div>
+		<div id="actionSheet_wrap">
+			<div class="weui-skin_android" id="weui-android-actionsheet" style="display: none">
+				<div class="weui-mask"></div>
+				<div class="weui-actionsheet">
+					<div class="weui-actionsheet__menu">
+						<div class="weui-actionsheet__cell">
+							<form id="uploadForm">
+								<input type="file" name="logo" multiple="multiple" />上传本地简历
+							</form>
+						</div>
+						<div class="weui-actionsheet__cell">
+							<a href="javascript:;" class="weui-btn weui-btn_plain-primary">上传</a>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</body>
@@ -39,6 +60,10 @@
 			success: function(data) {
 				console.log(data);
 				var detail = data.detail[0];
+				var imgHtml = `
+				<span class="weui-gallery__img" style="background-image: url(${detail.company_img});"></span>
+				`;
+				$("#img").html(imgHtml);
 				var html = `
 				<header id="header">职位详情
 				<div class="left"><span class="corner"></span></div>
@@ -85,7 +110,7 @@
 				</div>
 
 				<div class="company activeable">
-					<img src="//www.lgstatic.com/i/image/M00/BC/B4/Cgp3O1jI4GCAGiOuAAA4uOqKhhw662.png" alt="" class="logo">
+					<img src="${detail.company_img}" alt="" class="logo">
 					<div class="desc">
 						<div class="dleft">
 							<h2 class="title">
@@ -158,6 +183,37 @@
 			</div>
 				`;
 				$("#content").html(html)
+				$(".logo").on("click", function() {
+					$(".weui-gallery").show()
+					console.log("test")
+				})
+				$(".weui-gallery__del").on("click", function() {
+					$(".weui-gallery").hide()
+					console.log("test")
+				})
+				$("#deliver_resume").on("click", function() {
+					$("#weui-android-actionsheet").show()
+				})
+
+				$(".weui-btn_plain-primary").on("click", function() {
+					console.log("abc")
+					$.ajax({
+						url: 'http://localhost:8081/upload-single',
+						type: 'POST',
+						cache: false, //不必须
+						data: new FormData($('#uploadForm')[0]),
+						processData: false,
+						contentType: false,
+						success: function(data) {
+							$("#weui-android-actionsheet").hide()
+							console.log(data)
+						}
+					})
+				})
+
+				$(".weui-mask").on("click", function() {
+					$("#weui-android-actionsheet").hide()
+				})
 			}
 		});
 	</script>

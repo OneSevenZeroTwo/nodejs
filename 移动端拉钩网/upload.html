@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="css/weui.css" />
+	</head>
+
+	<body>
+		<div class="weui-cells weui-cells_form">
+			<div class="weui-cell">
+				<div class="weui-cell__bd">
+					<div class="weui-uploader">
+						<div class="weui-uploader__hd">
+							<p class="weui-uploader__title">图片上传</p>
+							<div class="weui-uploader__info">0/2</div>
+						</div>
+						<div class="weui-uploader__bd">
+							<ul class="weui-uploader__files" id="uploaderFiles">
+								<li class="weui-uploader__file" style="background-image:url(./images/pic_160.png)"></li>
+								<li class="weui-uploader__file" style="background-image:url(./images/pic_160.png)"></li>
+								<li class="weui-uploader__file" style="background-image:url(./images/pic_160.png)"></li>
+								<li class="weui-uploader__file weui-uploader__file_status" style="background-image:url(./images/pic_160.png)">
+									<div class="weui-uploader__file-content">
+										<i class="weui-icon-warn"></i>
+									</div>
+								</li>
+								<li class="weui-uploader__file weui-uploader__file_status" style="background-image:url(./images/pic_160.png)">
+									<div class="weui-uploader__file-content">50%</div>
+								</li>
+							</ul>
+							<div class="weui-uploader__input-box">
+								<form id="uploadForm">
+									<input id="uploaderInput" class="weui-uploader__input" name="logo" type="file" accept="image/*" multiple="">
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="page__bd page__bd_spacing">
+			<div class="weui-progress">
+				<div class="weui-progress__bar">
+					<div class="weui-progress__inner-bar js_progress" style="width: 100%;"></div>
+				</div>
+				<a href="javascript:;" class="weui-progress__opr">
+					<i class="weui-icon-cancel"></i>
+				</a>
+			</div>
+			<br>
+			<div class="weui-progress">
+				<div class="weui-progress__bar">
+					<div class="weui-progress__inner-bar js_progress" style="width: 100%;"></div>
+				</div>
+				<a href="javascript:;" class="weui-progress__opr">
+					<i class="weui-icon-cancel"></i>
+				</a>
+			</div>
+			<br>
+			<div class="weui-progress">
+				<div class="weui-progress__bar">
+					<div class="weui-progress__inner-bar js_progress" style="width: 100%;"></div>
+				</div>
+				<a href="javascript:;" class="weui-progress__opr">
+					<i class="weui-icon-cancel"></i>
+				</a>
+			</div>
+			<div class="weui-btn-area">
+				<a href="javascript:;" onclick="doUpload()" class="weui-btn weui-btn_primary" id="btnUpload">上传</a>
+			</div>
+		</div>
+	</body>
+	<style>
+		.page__bd_spacing {
+			padding: 0 15px;
+		}
+	</style>
+	<script src="js/jquery-3.1.1.min.js"></script>
+	<script>
+		function doUpload() {
+			$.ajax({
+				url: 'http://localhost:8081/upload-single',
+				type: 'POST',
+				cache: false, //不必须
+				data: new FormData($('#uploadForm')[0]),
+				processData: false,
+				contentType: false,
+				success: function(data) {
+					console.log(data)
+				}
+			})
+		}
+	</script>
+
+</html>
