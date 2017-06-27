@@ -536,5 +536,24 @@ cheerio模块，后端的jQ
 ajax短连接
 
 websocket长连接
-=======
->>>>>>> e888544d050e5d02eb341fa8768844eea8e7487a
+
+```
+//创建一个服务器
+var http = require("http");
+var app = http.createServer(function(req,res){
+	
+});
+
+var ioFn = require("socket.io");
+//实例化服务器，让它支持websocket
+var io = ioFn(app);
+//跟前端进行连接
+io.on("connection",function(socket){
+	//前端跟后端联系的一个重要对象 发送消息的名字 发送消息的内容
+	socket.emit("test","")
+})
+```
+# 服务端
+```javascript
+socket.emit("消息名字","消息内容")
+```

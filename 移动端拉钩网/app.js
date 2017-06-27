@@ -112,6 +112,14 @@ app.post('/upload-single', upload.any(), function(req, res, next) {
 	});
 });
 
+app.post('/gethtml', upload.any(), function(req, res, next) {
+	console.log(req.body)
+	res.append("Access-Control-Allow-Origin","*");
+	res.send({
+		wscats_code: '0',
+	});
+});
+
 var server = app.listen(8081, function() {
 	//测试
 	//测试

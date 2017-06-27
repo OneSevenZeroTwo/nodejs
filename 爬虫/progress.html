@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="css/weui.css" />
+	</head>
+
+	<body>
+		<div class="page__bd page__bd_spacing">
+			<div class="weui-progress">
+				<div class="weui-progress__bar">
+					<div class="weui-progress__inner-bar js_progress" style="width: 0%;"></div>
+				</div>
+				<a href="javascript:;" class="weui-progress__opr">
+					<i class="weui-icon-cancel"></i>
+				</a>
+			</div>
+		</div>
+	</body>
+	<script src="js/socket.js"></script>
+	<script>
+		var socket = io('http://localhost:6789');
+		socket.on("progress", function(data) {
+			console.log(data)
+			document.querySelector(".weui-progress__inner-bar").style.width = (data + "%");
+		})
+	</script>
+
+</html>

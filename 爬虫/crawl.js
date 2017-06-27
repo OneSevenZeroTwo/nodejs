@@ -10,7 +10,17 @@ var connection = mysql.createConnection({
 	password: '12345678',
 	database: 'meizi'
 });
-//进行数据库连接
+
+var http = require("http");
+var app = http.createServer(function(req, res) {
+
+});
+
+var ioFn = require("socket.io");
+//实例化服务器，让它支持websocket
+var io = ioFn(app);
+app.listen(6789)
+	//进行数据库连接
 connection.connect();
 //console.log(http)
 console.log("start")
@@ -48,8 +58,14 @@ function download(imgArr) {
 		res.pipe(writerStream);
 		//递归
 		if(i < length) {
+			io.on("connection", function(socket) {
+				//前端跟后端联系的一个重要对象 发送消息的名字 发送消息的内容
+				setInterval(function() {
+					socket.emit("progress", i*4.35);
+				}, 1000)
+			})
 			i++;
-			console.log("完成第"+i+"/"+length+"张")
+			console.log("完成第" + i + "/" + length + "张")
 			download(imgArr);
 		} else {
 			return
