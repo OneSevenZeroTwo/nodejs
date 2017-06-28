@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -10,18 +9,17 @@
 		<link rel="Shortcut Icon" href="//www.lgstatic.com/m/images/asset/common/img/favicon.ico?v=201706062006">
 		<link href="//www.lgstatic.com/m/css/asset/center/mine/css/mine.css?v=201706062006" rel="stylesheet">
 	</head>
-
 	<body ontouchstart="">
 		<header id="header">拉勾网</header>
 		<form id="uploadForm">
-			<input type="file" name="logo" onchange="doUpload()" multiple="multiple" />
+			<input style="display: none;" type="file" name="logo" onchange="doUpload()" multiple="multiple" />
 		</form>
 		<div id="content">
 			<div class="logininfo">
 				<div class="haslogin center">
 					<a class="button" href="http://www.lagou.com/center/preview.html" target="_self"> 简历&gt; </a>
 					<div class="headcon">
-						<img class="headpic" src="//www.lgstatic.com/i/image/M00/33/C0/Cgp3O1dS3yuABUkvAAowj3mtgAM075.png">
+						<img onclick="uploadImg()" class="headpic" src="//www.lgstatic.com/i/image/M00/33/C0/Cgp3O1dS3yuABUkvAAowj3mtgAM075.png">
 					</div>
 					<div class="name">姚嘉隆</div>
 				</div>
@@ -86,6 +84,11 @@
 					$(".headpic").attr("src","http://localhost:8081/"+data.imgInfo[0].filename)
 				}
 			})
+		}
+		
+		function uploadImg(){
+			console.log("123")
+			$("#uploadForm input").trigger("click");
 		}
 	</script>
 
