@@ -37,18 +37,16 @@
 <script type="text/javascript">
 	//获取经纬度
 	window.navigator.geolocation.getCurrentPosition(function(data) {
-		console.log(data)
-		theLocation(data.coords.longitude, data.coords.latitude)
-	}, function(err) {
+			console.log(data)
+			theLocation(data.coords.longitude, data.coords.latitude)
+		}, function(err) {
 
-	})
-
-	//根据经纬度还原地图信息
-	// 百度地图API功能
+		})
+		//根据经纬度还原地图信息
+		// 百度地图API功能
 	var map = new BMap.Map("allmap");
 	map.centerAndZoom(new BMap.Point(116.331398, 39.897445), 11);
 	map.enableScrollWheelZoom(true);
-
 	// 用经纬度设置地图中心点
 	function theLocation(longitude, latitude) {
 		if(longitude != "" && latitude) {

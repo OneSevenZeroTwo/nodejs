@@ -87,7 +87,7 @@
 						</span>
 						<span class="item workaddress">
                         <em class="icon"></em>
-                        <span class="text">长沙</span>
+                        <span class="text" id="postion">广州市越秀区北京路</span>
 						</span>
 						<span class="item jobnature">
                         <em class="icon"></em>
@@ -213,6 +213,12 @@
 
 				$(".weui-mask").on("click", function() {
 					$("#weui-android-actionsheet").hide()
+				})
+
+				$("#postion").on("click", function() {
+					console.log($(this).text())
+					window.localStorage.setItem("name",$(this).text())
+					window.location.href = "map.html";
 				})
 			}
 		});

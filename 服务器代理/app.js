@@ -1,22 +1,21 @@
 var express = require('express');
 var http = require("http");
 var fs = require("fs")
-
 var app = express();
 //中间层
 app.get('/', function(req, res) {
 	//nodejs专门写文件
 	fs.readFile("log.html", function(err, data) {
-			var content = `<tr>
+		var content = `<tr>
 			<th>${data.toString()}</th>
 			<th>${req.query.name}</th>
 			</tr>`;
-			fs.writeFile("log.html", content, function(err) {
+		fs.writeFile("log.html", content, function(err) {
 
-			})
 		})
-		//通信php
-		//php专门存数据库
+	});
+	//通信php
+	//php专门存数据库
 	http.request({
 		hostname: 'localhost',
 		port: '81',
